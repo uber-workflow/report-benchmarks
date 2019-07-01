@@ -13,22 +13,17 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "babel-loader": "^8.0.6",
-    "husky": "^2.1.0",
     "prettier": "^1.17.0",
-    "webpack": "^4.35.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run format",
-      "pre-push": "npm run format"
-    }
+    "webpack": "^4.35.0",
+    "@babel/preset-react": "^7.0.0"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.0.0",
-    "@vx/boxplot": "0.0.189",
     "@vx/group": "0.0.189",
+    "@vx/pattern": "0.0.189",
     "@vx/scale": "0.0.189",
+    "@vx/stats": "0.0.189",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "stats-lite": "^2.2.0"
   }
 }
