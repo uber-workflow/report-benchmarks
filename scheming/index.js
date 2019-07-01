@@ -34,7 +34,7 @@ async function handleRequest(request) {
       });
     }
 
-    const output = ReactDOMServer.renderToString(
+    const output = ReactDOMServer.renderToStaticMarkup(
       boxPlot(
         json.data,
         json.labels != undefined ? json.labels : [],
