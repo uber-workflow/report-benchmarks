@@ -117,7 +117,7 @@ function BoxPlotSVG(props) {
     svgData.push(
       <BoxPlot
         data={[]}
-        min={median + 3 * stats.stdev(data[i])}
+        min={median - 3 * stats.stdev(data[i])}
         max={median + 3 * stats.stdev(data[i])}
         top={start + padding * i}
         firstQuartile={stats.percentile(data[i], 0.25)}
