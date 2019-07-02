@@ -116,9 +116,9 @@ function BoxPlotSVG(props) {
     );
     svgData.push(
       <BoxPlot
-        data={boxPlot}
-        min={boxPlot.min}
-        max={boxPlot.max}
+        data={[]}
+        min={median + 3 * stats.stdev(data[i])}
+        max={median + 3 * stats.stdev(data[i])}
         top={start + padding * i}
         firstQuartile={stats.percentile(data[i], 0.25)}
         thirdQuartile={stats.percentile(data[i], 0.75)}
@@ -133,16 +133,6 @@ function BoxPlotSVG(props) {
         horizontal
       />
     );
-    // svgData.push(
-    //   <line
-    //     y1={start + 10 + padding * i - boxWidth}
-    //     x1={scale(median)}
-    //     y2={start + 10 + padding * i + boxWidth}
-    //     x2={scale(median)}
-    //     stroke={colors[i % colors.length]}
-    //     stroke-width={3}
-    //   />
-    // );
     for (let j = 0; j < data[i].length; j++) {
       let yVal = start + boxWidth / 2 + padding * i;
       svgData.push(
