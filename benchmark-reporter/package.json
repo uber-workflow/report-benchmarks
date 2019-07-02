@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "A Probot app",
   "author": "Joseph Agnelli <jagnelli@uber.com>",
-  "license": "ISC",
-  "repository": "https://github.com//my-first-app.git",
-  "homepage": "https://github.com//my-first-app",
-  "bugs": "https://github.com//my-first-app/issues",
+  "license": "MIT",
   "keywords": [
     "probot",
     "github",
@@ -15,8 +12,7 @@
   "scripts": {
     "dev": "nodemon",
     "start": "probot run ./index.js",
-    "lint": "standard --fix",
-    "test": "jest && standard",
+    "test": "jest",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
@@ -27,7 +23,6 @@
     "nock": "^10.0.0",
     "nodemon": "^1.17.2",
     "smee-client": "^1.0.2",
-    "standard": "^12.0.1"
   },
   "engines": {
     "node": ">= 8.3.0"
