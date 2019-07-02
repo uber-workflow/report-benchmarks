@@ -5,25 +5,24 @@
 module.exports = app => {
   const commentString = "[//]: # (BOXPLOT)";
   app.on("pull_request.opened", async context => {
-    let base_checks = await context.github.checks.listForRef(
-      context.repo({
-        check_name: "Benchmarks",
-        status: "completed",
-        filter: "latest",
-        ref: context.payload.pull_request.base.sha,
-      })
-    );
-
-    let head_checks = await context.github.checks.listForRef(
-      context.repo({
-        check_name: "Benchmarks",
-        status: "completed",
-        filter: "latest",
-        ref: context.payload.pull_request.head.sha,
-      })
-    );
-
-    [base_checks, head_checks] = await Promise.all([base_checks, head_checks]);
+    const [base_checks, head_checks] = await Promise.all([
+      context.github.checks.listForRef(
+        context.repo({
+          check_name: "Benchmarks",
+          status: "completed",
+          filter: "latest",
+          ref: context.payload.pull_request.base.sha,
+        })
+      ),
+      context.github.checks.listForRef(
+        context.repo({
+          check_name: "Benchmarks",
+          status: "completed",
+          filter: "latest",
+          ref: context.payload.pull_request.head.sha,
+        })
+      ),
+    ]);
 
     if (head_checks.data.total_count < 1) {
       return context.github.issues.createComment(
@@ -101,7 +100,7 @@ module.exports = app => {
           data: [head_json.data[i].time, base_json.data[i].time],
         };
         imageStrings.push(
-          ` ![Boxplot](https://scheming.scheming.workers.dev/?json=${encodeURIComponent(
+          ` ![Boxplot](${process.env.CHART_URL}/?json=${encodeURIComponent(
             JSON.stringify(chart)
           )})`
         );
@@ -124,7 +123,7 @@ module.exports = app => {
           }
         }
         imageStrings.push(
-          ` ![Boxplot](https://scheming.scheming.workers.dev/?json=${encodeURIComponent(
+          ` ![Boxplot](${process.env.CHART_URL}/?json=${encodeURIComponent(
             JSON.stringify(chart)
           )})`
         );
