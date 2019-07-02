@@ -120,8 +120,8 @@ function BoxPlotSVG(props) {
         min={boxPlot.min}
         max={boxPlot.max}
         top={start + padding * i}
-        firstQuartile={boxPlot.firstQuartile} //{stats.percentile(data[i], 0.25)}
-        thirdQuartile={boxPlot.thirdQuartile} //{stats.percentile(data[i], 0.75)}
+        firstQuartile={stats.percentile(data[i], 0.25)}
+        thirdQuartile={stats.percentile(data[i], 0.75)}
         median={median}
         boxWidth={boxWidth}
         fill={colors[i % colors.length]}
