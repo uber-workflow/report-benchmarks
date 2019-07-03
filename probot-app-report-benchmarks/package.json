@@ -1,14 +1,7 @@
 {
-  "name": "benchmark-reporter",
+  "name": "probot-app-report-benchmarks",
   "version": "1.0.0",
-  "description": "A Probot app",
   "author": "Joseph Agnelli <jagnelli@uber.com>",
-  "license": "MIT",
-  "keywords": [
-    "probot",
-    "github",
-    "probot-app"
-  ],
   "scripts": {
     "dev": "nodemon",
     "start": "probot run ./index.js",
@@ -24,14 +17,6 @@
     "nodemon": "^1.17.2",
     "smee-client": "^1.0.2"
   },
-  "engines": {
-    "node": ">= 8.3.0"
-  },
-  "standard": {
-    "env": [
-      "jest"
-    ]
-  },
   "nodemonConfig": {
     "exec": "npm start",
     "watch": [
@@ -41,5 +26,9 @@
   },
   "jest": {
     "testEnvironment": "node"
-  }
+  },
+  "engines": {
+    "node": ">= 8.3.0"
+  },
+  "license": "MIT"
 }

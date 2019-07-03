@@ -1,4 +1,4 @@
-name = "scheming"
+name = "benchmarks"
 type = "webpack"
 zone_id = ""
 private = false
