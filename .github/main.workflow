@@ -11,7 +11,14 @@ action "Master" {
 action "Deploy" {
   uses = "./deploy"
   needs = ["Master"]
-  secrets = ["APP_ID", "WEBHOOK_SECRET", "PRIVATE_KEY"]
+  secrets = [
+    "APP_ID",
+    "WEBHOOK_SECRET",
+    "PRIVATE_KEY",
+    "CF_API_KEY",
+    "CF_EMAIL",
+    "CF_ACCOUNT_ID",
+  ]
   env = {
     NOW_ALIAS = "fusion-benchmarks.now.sh"
     NOW_TEAM = "fusionjs"
