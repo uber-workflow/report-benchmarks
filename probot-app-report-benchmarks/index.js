@@ -27,7 +27,6 @@ module.exports = app => {
     if (head_checks.data.total_count < 1) {
       return context.github.issues.createComment(
         context.issue({
-          comment_id: comment.id,
           body: `${commentString}\nBenchmark hasn't finished running yet on HEAD commit, this comment will update after it completes`,
         })
       );
@@ -59,32 +58,32 @@ module.exports = app => {
     if (pull_request == undefined) {
       return;
     }
-
-    let base_checks = await context.github.checks.listForRef(
-      context.repo({
-        check_name: "Benchmarks",
-        status: "completed",
-        filter: "latest",
-        ref: pull_request.base.sha,
-      })
-    );
-
-    let comments = await context.github.issues.listComments(
-      context.repo({
-        number: pull_request.number,
-      })
-    );
+    const head_checks = context.payload.check_run.output;
+    const [base_checks, comments] = await Promise.all([
+      context.github.checks.listForRef(
+        context.repo({
+          check_name: "Benchmarks",
+          status: "completed",
+          filter: "latest",
+          ref: context.payload.pull_request.base.sha,
+        })
+      ),
+      context.github.issues.listComments(
+        context.repo({
+          number: pull_request.number,
+        })
+      ),
+    ]);
 
     const comment = comments.data.find(cmt => {
       return cmt.body.startsWith(commentString);
     });
 
-    base_checks = await base_checks;
     const commentBody = generateCommentBody(
       base_checks.data.total_count > 0
         ? JSON.parse(base_checks.data.check_runs[0].output.text)
         : "",
-      JSON.parse(head_checks.data.check_runs[0].output.text)
+      JSON.parse(head_checks.text)
     );
     if (comment == undefined) {
       return context.github.issues.createComment(
