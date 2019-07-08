@@ -11,10 +11,17 @@ action "Master" {
 action "Deploy" {
   uses = "./deploy"
   needs = ["Master"]
-  secrets = ["APP_ID", "WEBHOOK_SECRET", "PRIVATE_KEY"]
+  secrets = [
+    "APP_ID",
+    "CF_API_KEY",
+    "CF_EMAIL",
+    "CF_ACCOUNT_ID",
+    "NOW_TOKEN",
+  ]
   env = {
     NOW_ALIAS = "fusion-benchmarks.now.sh"
     NOW_TEAM = "fusionjs"
     NOW_PROJECT = "fusion-benchmarks"
+    CHART_URL = "https://benchmarks.fusionjs.workers.dev"
   }
 }
