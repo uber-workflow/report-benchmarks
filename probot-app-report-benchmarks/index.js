@@ -56,6 +56,10 @@ module.exports = app => {
       return pr.head.sha == head_sha;
     });
 
+    if (pull_request == undefined) {
+      return;
+    }
+
     let base_checks = await context.github.checks.listForRef(
       context.repo({
         check_name: "Benchmarks",
@@ -76,17 +80,26 @@ module.exports = app => {
     });
 
     base_checks = await base_checks;
-    return context.github.issues.updateComment(
-      context.repo({
-        comment_id: comment.id,
-        body: generateCommentBody(
-          base_checks.data.total_count > 0
-            ? JSON.parse(base_checks.data.check_runs[0].output.text)
-            : "",
-          JSON.parse(context.payload.check_run.output.text)
-        ),
-      })
+    const commentBody = generateCommentBody(
+      base_checks.data.total_count > 0
+        ? JSON.parse(base_checks.data.check_runs[0].output.text)
+        : "",
+      JSON.parse(head_checks.data.check_runs[0].output.text)
     );
+    if (comment == undefined) {
+      return context.github.issues.createComment(
+        context.issue({
+          body: commentBody,
+        })
+      );
+    } else {
+      return context.github.issues.updateComment(
+        context.repo({
+          comment_id: comment.id,
+          body: commentBody,
+        })
+      );
+    }
   });
 
   function generateCommentBody(base_json, head_json) {
