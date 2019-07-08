@@ -4,7 +4,7 @@
 The app itself is stored in the ./benchmark-reporter directory.
 ## Overview
 
-The app relies on a microservice (stored in ./scheming) to generate the boxplots from the data.
+The app relies on a microservice (stored in ./benchmarks-image-service) to generate the boxplots from the data.
 
 The microservice generates svg images from data in a GET request, allowing the URL to be directly embedded into the html on your page, or, in this case, in a comment on GitHub.
 
