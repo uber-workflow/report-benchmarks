@@ -1,7 +1,7 @@
 # report-benchmarks
 
 > a GitHub App built with [probot](https://github.com/probot/probot) that comments on pull requests a series of boxplots showing the difference in compile time between the BASE and HEAD commits (using data stored in a checkrun)
-The app itself is stored in the ./benchmark-reporter directory.
+The app itself is stored in the ./probot-app-report-benchmarks directory.
 ## Overview
 
 The app relies on a microservice (stored in ./benchmarks-image-service) to generate the boxplots from the data.
@@ -12,3 +12,6 @@ Then, whenever a pr is opened, or the 'Benchmarks' check finishes running, the G
 
 ## Setup
 The microservice is hosted using [Cloudflare Workers](https://workers.cloudflare.com/)
+
+## Deploy
+The microservice and GitHub App are both deployed automatically by running the ./deploy/deploy.sh via a GitHub Action.
