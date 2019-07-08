@@ -10,7 +10,7 @@ wrangler config dummy_value dummy_value
 
 wrangler publish --release
 
-cd ../benchmark-reporter
+cd ../probot-app-report-benchmarks
 
 APP_URL=$(now --npm --public -e PRIVATE_KEY=@fusion-benchmarks-private-key -e APP_ID=$APP_ID -e WEBHOOK_SECRET=@fusion-benchmarks-webhook-secret -e NODE_ENV="production" -e LOG_LEVEL=debug -T $NOW_TEAM -t $NOW_TOKEN)
 now scale $APP_URL sfo 1 -T $NOW_TEAM --token=$NOW_TOKEN
