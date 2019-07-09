@@ -1,4 +1,4 @@
-const { BoxPlot, ViolinPlot, computeStats } = require("@vx/stats");
+const { BoxPlot, ViolinPlot, computeStats } = require("./stats");
 const { scaleLinear } = require("@vx/scale");
 const ReactDOMServer = require("react-dom/server");
 const { Group } = require("@vx/group");
@@ -164,7 +164,7 @@ function BoxPlotSVG(props) {
       height={height}
       xmlns={"http://www.w3.org/2000/svg"}
       version={"1.1"}
-      left="150"
+      left="200"
     >
       <text x={width / 2 - (title.length / 2) * 13} y={10} font-weight="bold">
         {title}

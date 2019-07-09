@@ -11,7 +11,7 @@
     "@vx/group": "0.0.189",
     "@vx/pattern": "0.0.189",
     "@vx/scale": "0.0.189",
-    "@vx/stats": "0.0.189",
+    "@vx/stats": "file:stats",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "stats-lite": "^2.2.0"
