@@ -1,4 +1,4 @@
-const { BoxPlot, ViolinPlot, computeStats } = require("./stats");
+const { BoxPlot, ViolinPlot, computeStats } = require("./vx-stats.es.js");
 const { scaleLinear } = require("@vx/scale");
 const ReactDOMServer = require("react-dom/server");
 const { Group } = require("@vx/group");
