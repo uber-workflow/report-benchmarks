@@ -65,7 +65,7 @@ module.exports = app => {
           check_name: "Benchmarks",
           status: "completed",
           filter: "latest",
-          ref: context.payload.pull_request.base.sha,
+          ref: pull_request.base.sha,
         })
       ),
       context.github.issues.listComments(
