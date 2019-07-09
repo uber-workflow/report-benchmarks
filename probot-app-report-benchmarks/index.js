@@ -87,7 +87,8 @@ module.exports = app => {
     );
     if (comment == undefined) {
       return context.github.issues.createComment(
-        context.issue({
+        context.repo({
+          number: pull_request.number,
           body: commentBody,
         })
       );
