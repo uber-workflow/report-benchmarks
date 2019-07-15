@@ -8,7 +8,7 @@ cd benchmarks-image-service
 # See: https://github.com/cloudflare/wrangler/pull/225
 wrangler config dummy_value dummy_value
 
-wrangler publish --release
+wrangler publish
 
 cd ../probot-app-report-benchmarks
 
