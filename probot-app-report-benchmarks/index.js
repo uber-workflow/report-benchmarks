@@ -24,6 +24,15 @@ module.exports = app => {
       ),
     ]);
 
+    if (
+      !(await cliHasChanged(
+        context,
+        context.payload.pull_request.head.sha,
+        context.payload.pull_request.base.sha
+      ))
+    )
+      return;
+
     if (head_checks.data.total_count < 1) {
       return context.github.issues.createComment(
         context.issue({
@@ -45,7 +54,7 @@ module.exports = app => {
   });
 
   app.on("check_run.completed", async context => {
-    if (context.payload.check_run.name != "Benchmarks") {
+    if (context.payload.check_run.name !== "Benchmarks") {
       return;
     }
     const head_sha = context.payload.check_run.head_sha;
@@ -58,6 +67,9 @@ module.exports = app => {
     if (pull_request == undefined) {
       return;
     }
+    if (!(await cliHasChanged(context, head_sha, pull_request.base.sha)))
+      return;
+
     const head_checks = context.payload.check_run.output;
     const [base_checks, comments] = await Promise.all([
       context.github.checks.listForRef(
@@ -143,5 +155,40 @@ module.exports = app => {
       }
     }
     return `${commentString}\n${imageStrings.join(" ")}`;
+  }
+
+  async function cliHasChanged(context, headSha, baseSha) {
+    const [headTarballHashes, baseTarballHashes] = await Promise.all([
+      context.github.checks.listForRef(
+        context.repo({
+          check_name: "Package tarball hashes",
+          status: "completed",
+          filter: "latest",
+          ref: headSha,
+        })
+      ),
+      context.github.checks.listForRef(
+        context.repo({
+          check_name: "Package tarball hashes",
+          status: "completed",
+          filter: "latest",
+          ref: baseSha,
+        })
+      ),
+    ]);
+    if (
+      headTarballHashes.data.total_count > 0 &&
+      baseTarballHashes.data.total_count > 0
+    ) {
+      return (
+        JSON.parse(headTarballHashes.data.check_runs[0].output.text).packages[
+          "fusion-cli"
+        ].shasum !==
+        JSON.parse(baseTarballHashes.data.check_runs[0].output.text).packages[
+          "fusion-cli"
+        ].shasum
+      );
+    }
+    return false; //assume no changes by default
   }
 };
