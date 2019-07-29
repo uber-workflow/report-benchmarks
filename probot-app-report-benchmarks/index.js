@@ -176,19 +176,15 @@ module.exports = app => {
         })
       ),
     ]);
-    if (
+    return (
       headTarballHashes.data.total_count > 0 &&
-      baseTarballHashes.data.total_count > 0
-    ) {
-      return (
-        JSON.parse(headTarballHashes.data.check_runs[0].output.text).packages[
-          "fusion-cli"
-        ].shasum !==
+      baseTarballHashes.data.total_count > 0 &&
+      JSON.parse(headTarballHashes.data.check_runs[0].output.text).packages[
+        "fusion-cli"
+      ].shasum !==
         JSON.parse(baseTarballHashes.data.check_runs[0].output.text).packages[
           "fusion-cli"
         ].shasum
-      );
-    }
-    return false; //assume no changes by default
+    );
   }
 };
