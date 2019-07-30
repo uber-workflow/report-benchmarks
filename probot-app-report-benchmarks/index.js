@@ -134,6 +134,7 @@ module.exports = app => {
         let headMedian = median(head_json.data[i].time);
         let baseMedian = median(base_json.data[i].time);
         let deltaMedian = headMedian - baseMedian;
+        //  if the delta is larger than 10% of the median, bold it.
         if (Math.abs(deltaMedian) > baseMedian * 0.1) {
           medianDeltas.push(`**${deltaMedian}**`);
           if (deltaMedian > 0) tallyIncreased++;
@@ -188,7 +189,7 @@ module.exports = app => {
     return `${commentString}\n**fusion-cli Benchmarks**\n${strEffect}
       \n${createTableString(
         titles,
-        ["∆ Median", "Median (head)", "IQR (head)", "Chart"],
+        ["∆ Median (ms)", "Median (head) (ms)", "IQR (head) (ms)", "Chart"],
         [medianDeltas, medianDurations, iqrs, imageStrings]
       )}`;
   }
