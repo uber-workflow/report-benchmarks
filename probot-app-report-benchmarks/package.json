@@ -9,6 +9,7 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
+    "compute-iqr": "^1.1.0",
     "probot": "^7.2.0"
   },
   "devDependencies": {
